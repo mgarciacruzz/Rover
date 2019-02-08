@@ -1,0 +1,23 @@
+#######################################
+# Syntax Coloring Map For LED13
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+RFComm KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+isConnected	KEYWORD2
+hasMessage	KEYWORD2
+getMessage	KEYWORD2
+sendMessage	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
