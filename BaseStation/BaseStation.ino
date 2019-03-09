@@ -23,6 +23,7 @@ void loop()
 {
   recvWithEndMarker();
   sendData();
+  Serial.flush();
 }
 
 void recvWithEndMarker() {
