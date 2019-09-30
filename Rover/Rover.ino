@@ -8,10 +8,12 @@
 #include <RFComm.h>
 #include <Lights.h>
 #include "Arm.h"
+#include "Mobility.h"
 
 Lights lights(13, 10);
 RFComm comm(8, 53);
 Arm arm(8);
+Mobility mov(1,4);
 
 uint8_t command[RH_NRF24_MAX_MESSAGE_LEN];
 uint8_t len;
@@ -23,7 +25,7 @@ void setup(){
     
     comm.init();
     arm.init();
-
+    mov.init();
     arm.startingPos();
 }
  
@@ -70,6 +72,13 @@ void Parser(char* command){
     #endif
 
     armCommand(tokens, i);
+  }
+  else if(strcmp (tokens[0],"mov") == 0){
+    #ifdef DEBUG
+    Serial.println("Debug: Mov command");
+    #endif
+
+    movCommand(tokens, i);
   }
   else{
     #ifdef DEBUG
@@ -132,7 +141,22 @@ void armCommand(char* tokens[], int i){
       arm.openClaw();
     else if(strcmp (tokens[2],"close") == 0)
       arm.closeClaw();
+  }    
+}
+
+void movCommand(char* tokens[], int i){
+  // exit if it didnt find 3 parameters
+  if(i < 2)
+    return;
+
+  if(strcmp (tokens[1],"fw") == 0){
+      mov.moveForward();
   }
-  
-      
+  else if(strcmp (tokens[1],"back") == 0){
+      mov.moveBack();
+  }
+  else if(strcmp (tokens[1],"stop") == 0){
+      mov.stop();
+  }
+     
 }
